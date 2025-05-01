@@ -1,54 +1,94 @@
-# React + TypeScript + Vite
+# 📊 Credit Risk Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack credit risk analytics dashboard built with **React**, **TypeScript**, **Ant Design**, **Recharts**, and **Node.js** (via mock JSON API). This dashboard visualizes customer credit data to assess and display risk levels interactively.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🌞🌙 Light/Dark mode toggle in the header
+- 📈 Line chart comparing income vs expenses
+- 🥧 Pie chart showing distribution of risk levels
+- 📋 Customer table with risk metrics, status, and filters
+- 🧮 Dynamic credit risk scoring logic
+- 🔁 Reusable components and type-safe code
+- 🧪 Sample data via JSON Server
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🛠️ Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Frontend**: React, TypeScript, Vite
+- **UI**: Ant Design
+- **Charts**: Recharts
+- **HTTP Client**: Axios
+- **Mock Backend**: JSON Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## 📁 Project Structure
+
+credit-risk-dashboard/ ├── public/ ├── src/ │ ├── components/ │ │ ├── OverviewDashboard.tsx │ │ ├── RiskAssessment.tsx │ │ ├── WorkflowManager.tsx │ ├── services/ │ │ └── api.ts │ ├── types/ │ │ └── index.ts
+│ ├── App.tsx │ ├── main.tsx ├── db.json ├── package.json ├── tsconfig.json └──
+
+##Steps to install and run the project
+**For Client Folder **
+
+- Do Npm install and run command npm start
+  **For Server Folder **
+  Do Npm install and run command npm start
+
+🤖 AI Tool Usage
+💬 I used ChatGPT to guide me step-by-step — especially for backend development which I was unfamiliar with.
+
+It helped me:
+
+-Set up Express routes, CORS, and data simulation
+-Write the risk scoring logic
+
+### 📊 1. Dashboard Overview
+
+- **Cards & Stats** showing total customers and total account balance
+- **Line Chart** of Income vs. Expenses (Recharts)
+- **Pie Chart** for risk score distribution
+- **Sortable, filterable table** of customer data
+
+### ⚠️ 2. Risk Assessment
+
+- Custom **risk score formula** based on:
+  - Credit Score
+  - Loan Repayment History
+  - Loan-to-Income Ratio
+- Color-coded score display using AntD **Progress bar + Tag**
+
+### 🔁 3. Workflow Automation
+
+- Ant Design **Select & Form** to update customer status
+- **PATCH API** updates data and re-renders UI
+- Sends simulated **alert for high-risk customers** (if score > 70)
+
+---
+
+## 🧠 Risk Scoring Logic
+
+```ts
+const getRiskScore = (customer: Customer) => {
+  const repaymentRate =
+    customer.loanRepaymentHistory.reduce((sum, val) => sum + val, 0) /
+    customer.loanRepaymentHistory.length;
+
+  const loanRatio = customer.outstandingLoans / customer.monthlyIncome;
+
+  const creditScoreComponent = (850 - customer.creditScore) / 850;
+  const repaymentComponent = 1 - repaymentRate;
+  const loanRatioComponent = Math.min(loanRatio / 5, 1); // Cap at 500%
+
+  const riskScore =
+    (creditScoreComponent * 0.4 +
+      repaymentComponent * 0.4 +
+      loanRatioComponent * 0.2) *
+    100;
+
+  return Math.round(riskScore);
+};
 ```

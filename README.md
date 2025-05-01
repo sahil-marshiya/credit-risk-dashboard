@@ -92,3 +92,6 @@ const getRiskScore = (customer: Customer) => {
   return Math.round(riskScore);
 };
 ```
+
+![sc5](https://github.com/user-attachments/assets/fd4fef1e-2688-4a2a-ae30-d2e13f639474)
+

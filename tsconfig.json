@@ -5,9 +5,9 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
+    "outDir": "./dist", // Compiled JS files will be output to the dist folder
     "rootDir": "./server"
   },
-  "include": ["server/**/*"],
+  "include": ["server/**/*"], // Ensures that your TypeScript files are being compiled
   "exclude": ["node_modules"]
 }

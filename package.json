@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && npm run copy-data",
-    "copy-data": "xcopy server\\data dist\\data /E /I /Y",
-    "start": "npm run build && node dist/index.js",
-    "dev": "ts-node-dev ./server/index.ts"
+    "start": "node dist/index.js",
+    "build": "npx tsc",
+    "dev": "nodemon server/index.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
